@@ -2,7 +2,7 @@ use crate::models::dex::Type;
 use crate::models::party::PartyMon;
 use ratatui::{prelude::*, widgets::*};
 
-pub fn render_party_window(frame: &mut Frame, area: Rect, party: &[PartyMon], selected_row: usize) {
+pub fn render_party_ui(frame: &mut Frame, area: Rect, party: &[PartyMon], selected_row: usize) {
     // Define table headers
     let headers = Row::new(vec![
         Cell::from("Name"),
@@ -23,7 +23,7 @@ pub fn render_party_window(frame: &mut Frame, area: Rect, party: &[PartyMon], se
                     Type::Water => Color::Blue,
                     Type::Grass => Color::Green,
                     Type::Electric => Color::Yellow,
-                    Type::Air => Color::Cyan,
+                    Type::Sonic => Color::Cyan,
                     Type::Dark => Color::DarkGray,
                     Type::Mystic => Color::Magenta,
                     Type::Legendary => Color::Rgb(204, 102, 0),
@@ -33,7 +33,15 @@ pub fn render_party_window(frame: &mut Frame, area: Rect, party: &[PartyMon], se
             };
             Row::new(vec![
                 Cell::from(format!("{}", g.dex_entry.name)),
-                Cell::from(format!("{}", g.dex_entry.types.iter().map(|t| t.to_string()).collect::<Vec<String>>().join(", "))),
+                Cell::from(format!(
+                    "{}",
+                    g.dex_entry
+                        .types
+                        .iter()
+                        .map(|t| t.to_string())
+                        .collect::<Vec<String>>()
+                        .join(", ")
+                )),
                 Cell::from(format!("{}", g.level)),
                 Cell::from(format!("{}/{}", g.experience_range.0, g.experience_range.1)),
             ])
@@ -54,7 +62,7 @@ pub fn render_party_window(frame: &mut Frame, area: Rect, party: &[PartyMon], se
         .header(headers)
         .block(
             Block::new()
-                .title("Gitmons")
+                .title("Party")
                 .borders(Borders::ALL)
                 .border_type(BorderType::Rounded),
         )

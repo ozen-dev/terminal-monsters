@@ -13,7 +13,7 @@ use models::{
 };
 use ratatui::prelude::*;
 use std::io::{stdout, Result};
-use ui::{menu_window::render_menu_window, party_window::render_party_window};
+use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
 
 fn main() -> Result<()> {
     // Setup terminal
@@ -33,11 +33,11 @@ fn main() -> Result<()> {
             let area = frame.size();
             let chunks = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Percentage(100), Constraint::Min(3)].as_ref())
+                .constraints([Constraint::Min(4), Constraint::Percentage(100)].as_ref())
                 .split(area);
 
-            render_party_window(frame, chunks[0], &party, selected_row);
-            render_menu_window(frame, chunks[1]);
+            render_header_ui(frame, chunks[0]);
+            render_party_ui(frame, chunks[1], &party, selected_row);
         })?;
 
         // Handle events

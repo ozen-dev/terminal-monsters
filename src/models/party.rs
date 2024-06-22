@@ -1,4 +1,4 @@
-use crate::models::dex::{DexMon, Type};
+use crate::models::dex::{load_dex, DexMon};
 use rand::seq::SliceRandom;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
@@ -23,15 +23,8 @@ impl PartyMon {
 
 pub fn initialize_party() -> Vec<PartyMon> {
     load_party().unwrap_or_else(|_| {
-        vec![PartyMon::new(
-            DexMon {
-                id: 1,
-                name: "Shellora".to_string(),
-                types: vec![Type::Dark],
-            },
-            1,
-            (0, 100),
-        )]
+        let dex = load_dex();
+        vec![PartyMon::new(dex[0].clone(), 1, (0, 100))]
     })
 }
 
