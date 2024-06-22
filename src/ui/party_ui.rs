@@ -19,12 +19,14 @@ pub fn render_party_ui(frame: &mut Frame, area: Rect, party: &[PartyMon], select
         .map(|(i, g)| {
             let style = if i == selected_row {
                 Style::default().bg(match g.dex_entry.types[0] {
+                    Type::Origin => Color::Rgb(140, 140, 140),
                     Type::Fire => Color::Red,
                     Type::Water => Color::Blue,
                     Type::Grass => Color::Green,
                     Type::Electric => Color::Yellow,
                     Type::Sonic => Color::Cyan,
-                    Type::Dark => Color::DarkGray,
+                    Type::Dark => Color::Rgb(48, 48, 48),
+                    Type::Garbage => Color::Rgb(110, 62, 0),
                     Type::Mystic => Color::Magenta,
                     Type::Legendary => Color::Rgb(204, 102, 0),
                 })
