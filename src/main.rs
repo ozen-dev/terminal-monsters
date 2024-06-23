@@ -1,6 +1,6 @@
 mod models;
 mod ui;
-mod watcher;
+mod worker;
 
 use crossterm::{
     event::{self, KeyCode, KeyEventKind},
