@@ -1,48 +1,66 @@
-use crate::models::dex::Type;
+use crate::models::dex::Family;
 use crate::models::party::PartyMon;
 use ratatui::{prelude::*, widgets::*};
 
-pub fn render_party_ui(frame: &mut Frame, area: Rect, party: &[PartyMon], selected_row: usize) {
+pub fn render_party_ui(
+    frame: &mut Frame,
+    area: Rect,
+    party: &[PartyMon],
+    selected_row: usize,
+    scroll_position: &mut usize,
+) {
     // Define table headers
     let headers = Row::new(vec![
+        Cell::from("#"),
         Cell::from("Name"),
-        Cell::from("Type"),
+        Cell::from("Family"),
         Cell::from("Level"),
         Cell::from("Exp."),
     ])
     .style(Style::default().fg(Color::White).bg(Color::Black));
 
+    // Calculate the visible rows based on the scroll state
+    let visible_rows = area.height as usize - 3; // (adjusted for header and borders)
+    let start = (*scroll_position).min(party.len().saturating_sub(visible_rows));
+    let end = (start + visible_rows).min(party.len());
+
     // Define table rows
-    let rows: Vec<Row> = party
+    let rows: Vec<Row> = party[start..end]
         .iter()
         .enumerate()
         .map(|(i, g)| {
-            let style = if i == selected_row {
-                Style::default().bg(match g.dex_entry.types[0] {
-                    Type::Origin => Color::Rgb(140, 140, 140),
-                    Type::Fire => Color::Red,
-                    Type::Water => Color::Blue,
-                    Type::Grass => Color::Green,
-                    Type::Electric => Color::Yellow,
-                    Type::Sonic => Color::Cyan,
-                    Type::Dark => Color::Rgb(48, 48, 48),
-                    Type::Garbage => Color::Rgb(110, 62, 0),
-                    Type::Mystic => Color::Magenta,
-                    Type::Legendary => Color::Rgb(204, 102, 0),
+            let style = if i + start == selected_row {
+                Style::default().bg(match g.dex_entry.family {
+                    Family::Scripting => Color::DarkGray,
+                    Family::Web => Color::Red,
+                    Family::Mobile => Color::Green,
+                    Family::Gaming => Color::Blue,
+                    Family::Database => Color::Yellow,
+                    Family::Systems => Color::Cyan,
+                    Family::Neural => Color::Magenta,
+                    Family::Ancient => Color::Rgb(150, 75, 0),
                 })
             } else {
-                Style::default().bg(Color::Black)
+                Style::default().fg(match g.dex_entry.family {
+                    Family::Scripting => Color::DarkGray,
+                    Family::Web => Color::Red,
+                    Family::Mobile => Color::Green,
+                    Family::Gaming => Color::Blue,
+                    Family::Database => Color::Yellow,
+                    Family::Systems => Color::Cyan,
+                    Family::Neural => Color::Magenta,
+                    Family::Ancient => Color::Rgb(150, 75, 0),
+                })
             };
             Row::new(vec![
+                Cell::from(format!("{}", g.dex_entry.id)),
                 Cell::from(format!("{}", g.dex_entry.name)),
                 Cell::from(format!(
                     "{}",
-                    g.dex_entry
-                        .types
-                        .iter()
-                        .map(|t| t.to_string())
-                        .collect::<Vec<String>>()
-                        .join(", ")
+                    serde_json::to_string(&g.dex_entry.family)
+                        .unwrap()
+                        .trim_matches('"')
+                        .to_string()
                 )),
                 Cell::from(format!("{}", g.level)),
                 Cell::from(format!("{}/{}", g.experience_range.0, g.experience_range.1)),
@@ -53,6 +71,7 @@ pub fn render_party_ui(frame: &mut Frame, area: Rect, party: &[PartyMon], select
 
     // Define column constraints
     let column_constraints = [
+        Constraint::Min(5),
         Constraint::Percentage(100),
         Constraint::Percentage(15),
         Constraint::Percentage(15),
@@ -71,5 +90,6 @@ pub fn render_party_ui(frame: &mut Frame, area: Rect, party: &[PartyMon], select
         .column_spacing(1)
         .highlight_style(Style::default().add_modifier(Modifier::BOLD));
 
+    // Render the table
     frame.render_widget(table, area);
 }
