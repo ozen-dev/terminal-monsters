@@ -442,7 +442,7 @@ dependencies = [
 
 [[package]]
 name = "terminal-monsters"
-version = "0.1.0"
+version = "0.0.1"
 dependencies = [
  "crossterm 0.25.0",
  "ratatui",
