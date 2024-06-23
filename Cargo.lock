@@ -129,16 +129,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3dca9240753cf90908d7e4aac30f630662b02aebaa1b58a3cadabdb23385b58b"
 
 [[package]]
-name = "gitmons"
-version = "0.1.0"
-dependencies = [
- "crossterm 0.25.0",
- "ratatui",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -448,6 +438,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "terminal-monsters"
+version = "0.1.0"
+dependencies = [
+ "crossterm 0.25.0",
+ "ratatui",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

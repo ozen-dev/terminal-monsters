@@ -25,11 +25,11 @@ pub fn initialize_party() -> io::Result<Vec<PartyMon>> {
     let mut party = match load_party() {
         Ok(party) => party,
         Err(_) => {
-            let starter_mon = load_dex().first().unwrap().clone();
-            vec![PartyMon::new(starter_mon, 1, (0, 100))]
+            // let starter_mon = load_dex().first().unwrap().clone();
+            // vec![PartyMon::new(starter_mon, 1, (0, 100))]
             // DEV MODE ONLY:
-            // let dex = load_dex();
-            // get_all_mons(&dex)
+            let dex = load_dex();
+            get_all_mons(&dex)
         }
     };
     party.sort_by_key(|mon| mon.dex_entry.id);
