@@ -6,7 +6,22 @@ Embark on an exciting journey, enhance your coding skills, and become the ultima
 
 ![Terminal Monsters Preview](https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0)
 
+## Table of Contents 🔗
+- [Installation](#%EF%B8%8F-installation)
+  - [Prerequisites](#prerequisites)
+  - [Install Rust](#install-rust-)
+  - [Clone the Repository](#clone-the-repository-)
+  - [Install the Binary](#install-the-binary-)
+  - [Configure Your Shell](#configure-your-shell-)
+- [Launch the Game](#launch-the-game-)
+- [Let the Adventure Begin](#-let-the-adventure-begin)
+
 ## 🛠️ Installation
+
+### Prerequisites
+- Rust
+- Git
+- Bash or Zsh
 
 To get started with Terminal Monsters, follow these steps:
 
