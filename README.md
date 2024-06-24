@@ -1,61 +1,34 @@
-# Terminal Monsters
+# 🎮 Terminal Monsters 👾
 
-Collect, train and battle monsters from your terminal!
+Welcome to Terminal Monsters, a thrilling game where you can collect, train, and battle monsters right from your terminal! Embark on an exciting adventure and catch'em all! 🚀
 
-<img width="1440" alt="terminal-monsters-preview" src="https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0">
+![Terminal Monsters Preview](https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0)
 
-## Install
+## 🛠️ Installation
 
-1. Install Rust on your machine
-   You can follow the ([instruction](https://doc.rust-lang.org/book/ch01-01-installation.html)) here.
+To get started with Terminal Monsters, follow these simple steps:
 
-2. Clone the repository
+1. **Install Rust** 🦀
+   Make sure you have Rust installed on your machine. If you don't have it yet, follow the [official installation guide](https://doc.rust-lang.org/book/ch01-01-installation.html).
 
-   ```shell
-   git clone https://github.com/enzo-rma/terminal-monsters.git
-   ```
-
-3. Install the binary
+2. **Clone the Repository** 📥
+   Clone the Terminal Monsters repository to your local machine using the following command:
 
 ```shell
-   cd path/to/project/directory
-   sh install.sh
+git clone https://github.com/enzo-rma/terminal-monsters.git
 ```
 
-Add this code in your .bashrc file or .zshrc file depending on your shell:
+3. **Install the Binary** 💻
+   Navigate to the project directory and run the installation script:
 
-If you use bash:
-
-```bash
-# Terminal Monsters Inc. function to send commands to the worker.
-watcher() {
-    # Capture the command
-    local cmd="\$@"
-    # Execute the command
-    eval "\$cmd"
-    # Send the command to the worker
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. function to collect and train monsters.
-preexec_invoke_exec() {
-    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
-    local cmd
-    if [ -n "\$BASH_VERSION" ]; then
-        cmd="\$BASH_COMMAND"
-    elif [ -n "\$ZSH_VERSION" ]; then
-        cmd="\$1"
-    fi
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. preexec function for Bash
-if [[ -n "\$BASH_VERSION" ]]; then
-    trap 'preexec_invoke_exec' DEBUG
-fi
+```shell
+sh install.sh
 ```
 
-If you use zsh:
+4. **Configure Your Shell** 🐚
+   Add the following code to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh):
+
+   For Bash:
 
 ```bash
 # Terminal Monsters Inc. function to send commands to the worker.
@@ -85,12 +58,50 @@ if [[ -n "\$ZSH_VERSION" ]]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec preexec_invoke_exec
 fi
+EOL
+fi
 ```
 
-4. Locate and execute the terminal-monsters-app binary
+For Zsh:
 
-The binary should be located in the .cargo directory at the following path: {your_home_directory}/.cargo/bin/terminal-monsters-app
+```zsh
+# Terminal Monsters Inc. function to send commands to the worker.
+watcher() {
+    # Capture the command
+    local cmd="\$@"
+    # Execute the command
+    eval "\$cmd"
+    # Send the command to the worker
+    echo "\$cmd" | $WORKER_PATH
+}
 
-5. Collect all the Terminal Monsters!
+# Terminal Monsters Inc. function to collect and train monsters.
+preexec_invoke_exec() {
+    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
+    local cmd
+    if [ -n "\$BASH_VERSION" ]; then
+        cmd="\$BASH_COMMAND"
+    elif [ -n "\$ZSH_VERSION" ]; then
+        cmd="\$1"
+    fi
+    echo "\$cmd" | $WORKER_PATH
+}
 
-At this point, the game should be installed correctly. You can now go back to your programming routine and Terminal Monsters might join your party if you run the commands that summon them. Have fun and go catch'em all! 😋
+# Terminal Monsters Inc. preexec function for Bash
+if [[ -n "\$BASH_VERSION" ]]; then
+    trap 'preexec_invoke_exec' DEBUG
+fi
+EOL
+fi
+```
+
+5. **Launch the Game** 🚀
+   Locate and execute the `terminal-monsters-app` binary. It should be located in the `.cargo` directory at the following path: `{your_home_directory}/.cargo/bin/terminal-monsters-app`.
+
+## 🌟 Let the Adventure Begin!
+
+You're all set! Terminal Monsters is now installed and ready for you to embark on your monster-collecting journey. As you go about your programming routine, keep an eye out for Terminal Monsters that might join your party when you run certain commands. The more you code, the more monsters you'll encounter!
+
+So what are you waiting for? Go catch'em all and become the ultimate Terminal Monsters trainer! 😄
+
+Happy coding and monster-catching! 🎉

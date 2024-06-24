@@ -1,5 +1,6 @@
-use app::models::dex::{load_dex, DexMon};
+use app::models::dex::{load_dex, DexMon, Family};
 use app::models::party::{initialize_party, save_party, PartyMon};
+use colored::*;
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
@@ -35,9 +36,27 @@ fn main() -> io::Result<()> {
             // Add monster to party
             party.push(PartyMon::new((*dex_mon).clone(), 1, (0, 100)));
             save_party(&party)?;
-            println!("-- Terminal Monsters Inc. --------");
-            println!("{} joined your party!", dex_mon.name);
-            println!("----------------------------------");
+
+            // Notify user
+            println!("{}", "-- Terminal Monsters Inc. --------".green());
+            println!(
+                "{}",
+                format!(
+                    "{} joined your party!",
+                    dex_mon.name.bold().color(match dex_mon.family {
+                        Family::Scripting => "dark gray",
+                        Family::Web => "red",
+                        Family::Mobile => "green",
+                        Family::Gaming => "blue",
+                        Family::Database => "yellow",
+                        Family::Systems => "cyan",
+                        Family::Neural => "magenta",
+                        Family::Ancient => "brown",
+                    })
+                )
+                .green()
+            );
+            println!("{}", "----------------------------------".green());
         }
     }
 
