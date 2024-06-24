@@ -34,7 +34,7 @@ sh install.sh
 
 To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding some functions to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh). These functions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
 
-For Bash:
+For Bash, open your .bashrc file and add the following code:
 
 ```bash
 # Terminal Monsters Inc. function to send commands to the worker.
@@ -68,7 +68,7 @@ EOL
 fi
 ```
 
-For Zsh:
+For Zsh, open your .zshrc file and add the following code:
 
 ```zsh
 # Terminal Monsters Inc. function to send commands to the worker.
