@@ -129,7 +129,7 @@ So what are you waiting for? Go catch'em all and become the ultimate Terminal Mo
 
 Happy coding and monster-catching! 🎉
 
-## Roadmap 🗺️
+## 🛣️ Roadmap
 
 ### Alpha Version (current)
 [x] **Collect Monsters**: Collect up to 25 unique monsters by executing specific terminal commands.
