@@ -75,10 +75,9 @@ preexec_invoke_exec() {
     echo "\$cmd" | $WORKER_PATH
 }
 
-# Terminal Monsters Inc. preexec function for Zsh
-if [[ -n "\$ZSH_VERSION" ]]; then
-    autoload -Uz add-zsh-hook
-    add-zsh-hook preexec preexec_invoke_exec
+# Terminal Monsters Inc. preexec function for Bash
+if [[ -n "\$BASH_VERSION" ]]; then
+    trap 'preexec_invoke_exec' DEBUG
 fi
 EOL
 fi
@@ -109,9 +108,10 @@ preexec_invoke_exec() {
     echo "\$cmd" | $WORKER_PATH
 }
 
-# Terminal Monsters Inc. preexec function for Bash
-if [[ -n "\$BASH_VERSION" ]]; then
-    trap 'preexec_invoke_exec' DEBUG
+# Terminal Monsters Inc. preexec function for Zsh
+if [[ -n "\$ZSH_VERSION" ]]; then
+    autoload -Uz add-zsh-hook
+    add-zsh-hook preexec preexec_invoke_exec
 fi
 EOL
 fi
