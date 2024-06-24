@@ -148,7 +148,7 @@ pub fn load_dex() -> Vec<DexMon> {
         },
         DexMon {
             id: 16,
-            name: "PostgreSqueel".to_string(),
+            name: "Squeelite".to_string(),
             family: Family::Database,
             commands: vec!["psql".to_string(), "supabase".to_string()],
         },
@@ -214,4 +214,8 @@ pub fn load_dex() -> Vec<DexMon> {
             commands: vec!["uname".to_string()],
         },
     ]
+}
+
+pub fn get_dex_mon_by_id(id: u32) -> Option<DexMon> {
+    load_dex().into_iter().find(|mon| mon.id == id)
 }

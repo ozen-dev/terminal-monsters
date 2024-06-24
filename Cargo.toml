@@ -8,15 +8,17 @@ crossterm = "0.25"
 ratatui = { version = "0.26.3", features = ["all-widgets"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+dirs = "4.0"
+colored = "2.0"
 
 [lib]
 name = "app"
 path = "src/lib.rs"
 
 [[bin]]
-name = "app"
+name = "terminal-monsters-app"
 path = "src/main.rs"
 
 [[bin]]
-name = "worker"
+name = "terminal-monsters-worker"
 path = "src/worker.rs"

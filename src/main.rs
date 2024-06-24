@@ -7,7 +7,7 @@ use crossterm::{
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
     ExecutableCommand,
 };
-use models::party::initialize_party;
+use models::party::load_party;
 use ratatui::prelude::*;
 use std::io::{stdout, Result, Stdout};
 use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
@@ -15,10 +15,9 @@ use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
 fn main() -> Result<()> {
     let mut terminal = setup_terminal()?;
 
-    // Load data
-    let party = initialize_party()?;
     let mut selected_row = 0;
     let mut scroll_position = 0;
+    let mut party = load_party()?;
 
     loop {
         // Draw UI
@@ -52,6 +51,15 @@ fn main() -> Result<()> {
                                     scroll_position = scroll_position.saturating_sub(1);
                                 }
                             }
+                        }
+                        KeyCode::Char('r') => {
+                            // Reload party data when 'r' is pressed
+                            party = load_party()?;
+                        }
+                        KeyCode::Char('w') => {
+                            // Open github page in default browser window
+                            let url = "https://github.com/enzo-rma/terminal-monsters";
+                            let _ = std::process::Command::new("open").args(&[url]).status();
                         }
                         _ => {}
                     }

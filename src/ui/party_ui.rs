@@ -1,4 +1,4 @@
-use crate::models::dex::Family;
+use crate::models::dex::{get_dex_mon_by_id, Family};
 use crate::models::party::PartyMon;
 use ratatui::{prelude::*, widgets::*};
 
@@ -17,7 +17,7 @@ pub fn render_party_ui(
         Cell::from("Level"),
         Cell::from("Exp."),
     ])
-    .style(Style::default().fg(Color::White).bg(Color::Black));
+    .style(Style::default().fg(Color::White));
 
     // Calculate the visible rows based on the scroll state
     let visible_rows = area.height as usize - 3; // (adjusted for header and borders)
@@ -29,8 +29,9 @@ pub fn render_party_ui(
         .iter()
         .enumerate()
         .map(|(i, g)| {
+            let dex_mon = get_dex_mon_by_id(g.dex_id).unwrap();
             let style = if i + start == selected_row {
-                Style::default().bg(match g.dex_entry.family {
+                Style::default().bg(match dex_mon.family {
                     Family::Scripting => Color::DarkGray,
                     Family::Web => Color::Red,
                     Family::Mobile => Color::Green,
@@ -41,7 +42,7 @@ pub fn render_party_ui(
                     Family::Ancient => Color::Rgb(150, 75, 0),
                 })
             } else {
-                Style::default().fg(match g.dex_entry.family {
+                Style::default().fg(match dex_mon.family {
                     Family::Scripting => Color::DarkGray,
                     Family::Web => Color::Red,
                     Family::Mobile => Color::Green,
@@ -53,11 +54,11 @@ pub fn render_party_ui(
                 })
             };
             Row::new(vec![
-                Cell::from(format!("{}", g.dex_entry.id)),
-                Cell::from(format!("{}", g.dex_entry.name)),
+                Cell::from(format!("{}", dex_mon.id)),
+                Cell::from(format!("{}", dex_mon.name)),
                 Cell::from(format!(
                     "{}",
-                    serde_json::to_string(&g.dex_entry.family)
+                    serde_json::to_string(&dex_mon.family)
                         .unwrap()
                         .trim_matches('"')
                         .to_string()
