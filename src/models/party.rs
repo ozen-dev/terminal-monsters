@@ -34,6 +34,7 @@ fn get_party_file_path() -> PathBuf {
     path
 }
 
+#[allow(dead_code)]
 /// Initializes the party by creating a new one from the dex if the file does not exist.
 pub fn initialize_party() -> io::Result<Vec<PartyMon>> {
     match load_party() {
