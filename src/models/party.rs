@@ -1,4 +1,4 @@
-use crate::models::dex::{load_dex, DexMon};
+use crate::models::dex::load_dex;
 use dirs;
 use serde::{Deserialize, Serialize};
 use std::fs::{self, File};
@@ -7,17 +7,27 @@ use std::path::PathBuf;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PartyMon {
-    pub dex_entry: DexMon,
+    pub dex_id: u32,
     pub level: u32,
     pub experience_range: (u32, u32),
 }
 
 impl PartyMon {
-    pub fn new(dex_entry: DexMon, level: u32, experience_range: (u32, u32)) -> Self {
+    pub fn new(dex_id: u32, level: u32, experience_range: (u32, u32)) -> Self {
         Self {
-            dex_entry,
+            dex_id,
             level,
             experience_range,
+        }
+    }
+
+    #[allow(dead_code)]
+    pub fn gain_experience(&mut self, points: u32) {
+        self.experience_range.0 += points;
+        while self.experience_range.0 >= self.experience_range.1 {
+            self.level += 1;
+            self.experience_range.0 -= self.experience_range.1;
+            self.experience_range.1 = 100;
         }
     }
 }
@@ -41,7 +51,7 @@ pub fn initialize_party() -> io::Result<Vec<PartyMon>> {
         Ok(party) => Ok(party),
         Err(_) => {
             let starter_mon = load_dex().first().unwrap().clone();
-            let party = vec![PartyMon::new(starter_mon, 1, (0, 100))];
+            let party = vec![PartyMon::new(starter_mon.id, 1, (0, 100))];
             save_party(&party)?;
             Ok(party)
         }
@@ -54,14 +64,14 @@ pub fn load_party() -> io::Result<Vec<PartyMon>> {
 
     if !file_path.exists() {
         let starter_mon = load_dex().first().unwrap().clone();
-        let party = vec![PartyMon::new(starter_mon, 1, (0, 100))];
+        let party = vec![PartyMon::new(starter_mon.id, 1, (0, 100))];
         save_party(&party)?;
     }
 
     let file = File::open(&file_path)?;
     let reader = BufReader::new(file);
     let mut party: Vec<PartyMon> = serde_json::from_reader(reader)?;
-    party.sort_by_key(|mon| mon.dex_entry.id);
+    party.sort_by_key(|mon| mon.dex_id);
 
     Ok(party)
 }

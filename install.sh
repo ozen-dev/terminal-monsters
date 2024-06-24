@@ -52,4 +52,8 @@ fi
 # Source the updated shell configuration
 source $SHELL_CONFIG
 
-echo "Installation complete."
+# Notify success
+printf "\033[32m+ Terminal Monsters Inc. -----------------+\033[0m\n"
+printf "\033[32m|\033[0m\033[0m Installation complete,\033[0m\n"
+printf "\033[32m|\033[0m\033[1m Shellora\033[0m joined your party!\033[0m\n"
+printf "\033[32m+-----------------------------------------+\033[0m\n"

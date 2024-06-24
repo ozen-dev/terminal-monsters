@@ -215,3 +215,7 @@ pub fn load_dex() -> Vec<DexMon> {
         },
     ]
 }
+
+pub fn get_dex_mon_by_id(id: u32) -> Option<DexMon> {
+    load_dex().into_iter().find(|mon| mon.id == id)
+}
