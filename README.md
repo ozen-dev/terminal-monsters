@@ -15,6 +15,7 @@ Embark on an exciting journey, enhance your coding skills, and become the ultima
   - [Configure Your Shell](#configure-your-shell-)
 - [Launch the Game](#launch-the-game-)
 - [Let the Adventure Begin](#-let-the-adventure-begin)
+- [Roadmap](#roadmap-)
 
 ## 🛠️ Installation
 
@@ -127,3 +128,16 @@ You're all set! Terminal Monsters is now installed and ready for you to embark o
 So what are you waiting for? Go catch'em all and become the ultimate Terminal Monsters trainer! 😄
 
 Happy coding and monster-catching! 🎉
+
+## Roadmap 🗺️
+
+### Alpha Version (current)
+[x] **Collect Monsters**: Collect up to 25 unique monsters by executing specific terminal commands.
+[x] **Level Up**: Train and level up your monsters as you use various programming languages and tools.
+[x] **TUI**: Browse your party of collected monsters.
+
+### Beta Version (Coming Soon)
+[ ] **Battles**: Engage in battles with other trainers by attacking their terminal.
+[ ] **Enhanced UI**: Improved user interface for a more immersive experience.
+[ ] **Monsters Art**: Pixel art rendering of all the monsters in the dex.
+[ ] **New Monsters**: Additional monsters to collect and train.
