@@ -4,18 +4,15 @@ Welcome to Terminal Monsters, a thrilling game where you can collect, train, and
 
 ![Terminal Monsters Preview](https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0)
 
-
 ## 🛠️ Installation
 
 To get started with Terminal Monsters, follow these simple steps:
 
+### Install Rust 🦀
 
-1. **Install Rust** 🦀
-  
 Make sure you have Rust installed on your machine. If you don't have it yet, follow the [official installation guide](https://doc.rust-lang.org/book/ch01-01-installation.html).
 
-
-2. **Clone the Repository** 📥
+### Clone the Repository 📥
 
 Clone the Terminal Monsters repository to your local machine using the following command:
 
@@ -23,8 +20,7 @@ Clone the Terminal Monsters repository to your local machine using the following
 git clone https://github.com/enzo-rma/terminal-monsters.git
 ```
 
-
-3. **Install the Binary** 💻
+### Install the Binary 💻
 
 Navigate to the project directory and run the installation script:
 
@@ -32,8 +28,7 @@ Navigate to the project directory and run the installation script:
 sh install.sh
 ```
 
-
-4. **Configure Your Shell** 🐚
+### Configure Your Shell 🐚
 
 Add the following code to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh):
 
@@ -104,8 +99,7 @@ EOL
 fi
 ```
 
-
-5. **Launch the Game** 🚀
+### Launch the Game 🚀
 
 Locate and execute the `terminal-monsters-app` binary. It should be located in the `.cargo` directory at the following path: `{your_home_directory}/.cargo/bin/terminal-monsters-app`.
 
