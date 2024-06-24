@@ -105,7 +105,7 @@ Locate and execute the `terminal-monsters-app` binary. It should be located in t
 
 ## 🌟 Let the Adventure Begin!
 
-You're all set! Terminal Monsters is now installed and ready for you to embark on your monster-collecting journey. As you go about your programming routine, keep an eye out for Terminal Monsters that might join your party when you run certain commands. The more you code, the more monsters you'll encounter!
+You're all set! Terminal Monsters is now installed and ready for you to embark on your monster-collecting journey. As you go about your programming routine, keep an eye out for Terminal Monsters that might join your party when you run certain commands. The more you code and the more programming languages you explore, the more monsters you'll encounter!
 
 So what are you waiting for? Go catch'em all and become the ultimate Terminal Monsters trainer! 😄
 
