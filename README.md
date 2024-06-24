@@ -50,9 +50,7 @@ sh install.sh
 
 ### Configure Your Shell 🐚
 
-To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding a function and setting up hooks in your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh).
-
-These additions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
+To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding a function and setting up hooks in your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh). These additions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
 
 Follow these steps to configure your shell:
 
