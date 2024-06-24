@@ -17,7 +17,7 @@ pub fn render_party_ui(
         Cell::from("Level"),
         Cell::from("Exp."),
     ])
-    .style(Style::default().fg(Color::White).bg(Color::Black));
+    .style(Style::default().fg(Color::White));
 
     // Calculate the visible rows based on the scroll state
     let visible_rows = area.height as usize - 3; // (adjusted for header and borders)

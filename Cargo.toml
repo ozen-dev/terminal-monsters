@@ -15,9 +15,9 @@ name = "app"
 path = "src/lib.rs"
 
 [[bin]]
-name = "app"
+name = "terminal-monsters-app"
 path = "src/main.rs"
 
 [[bin]]
-name = "worker"
+name = "terminal-monsters-worker"
 path = "src/worker.rs"

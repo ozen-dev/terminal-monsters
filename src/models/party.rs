@@ -24,13 +24,13 @@ impl PartyMon {
 
 fn get_party_file_path() -> PathBuf {
     let mut path = dirs::home_dir().unwrap();
-    path.push("Documents/Games/Projects/TerminalMonsters/data");
+    path.push("Documents/Games/TerminalMonsters/.data");
 
     if !path.exists() {
         fs::create_dir_all(&path).unwrap();
     }
-    
-    path.push("party.json");
+
+    path.push(".party.json");
     path
 }
 
@@ -59,7 +59,8 @@ pub fn load_party() -> io::Result<Vec<PartyMon>> {
 
     let file = File::open(&file_path)?;
     let reader = BufReader::new(file);
-    let party: Vec<PartyMon> = serde_json::from_reader(reader)?;
+    let mut party: Vec<PartyMon> = serde_json::from_reader(reader)?;
+    party.sort_by_key(|mon| mon.dex_entry.id);
 
     Ok(party)
 }

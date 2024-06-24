@@ -4,7 +4,7 @@
 cargo install --path .
 
 # Set up the watcher function
-WORKER_PATH=$(which worker)
+WORKER_PATH=$(which terminal-monsters-worker)
 SHELL_CONFIG="$HOME/.bashrc"
 if [ -n "$ZSH_VERSION" ]; then
     SHELL_CONFIG="$HOME/.zshrc"
@@ -24,19 +24,24 @@ watcher() {
     echo "\$cmd" | $WORKER_PATH
 }
 
-# Terminal Monsters Inc. function to watch commands and collect monsters.
+# Terminal Monsters Inc. function to collect and train monsters.
 preexec_invoke_exec() {
-    [ -n "$COMP_LINE" ] && return  # Do not intercept tab-completion
-    local cmd="$BASH_COMMAND"
+    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
+    local cmd
+    if [ -n "\$BASH_VERSION" ]; then
+        cmd="\$BASH_COMMAND"
+    elif [ -n "\$ZSH_VERSION" ]; then
+        cmd="\$1"
+    fi
     echo "\$cmd" | $WORKER_PATH
 }
 
-# Set up the preexec function for Bash
+# Terminal Monsters Inc. preexec function for Bash
 if [[ -n "\$BASH_VERSION" ]]; then
     trap 'preexec_invoke_exec' DEBUG
 fi
 
-# Set up the preexec function for Zsh
+# Terminal Monsters Inc. preexec function for Zsh
 if [[ -n "\$ZSH_VERSION" ]]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec preexec_invoke_exec
