@@ -13,8 +13,11 @@ use std::io::{stdout, Result, Stdout};
 use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
 
 fn main() -> Result<()> {
-    let mut terminal = setup_terminal()?;
+    // Set title to "Terminal Monsters Inc."
+    print!("\x1b]0;Terminal Monsters Inc.\x07");
 
+    // Setup terminal and data
+    let mut terminal = setup_terminal()?;
     let mut selected_row = 0;
     let mut scroll_position = 0;
     let mut party = load_party()?;

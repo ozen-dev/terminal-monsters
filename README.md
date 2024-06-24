@@ -81,6 +81,9 @@ elif [ -n "$ZSH_VERSION" ]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec preexec_invoke_exec
 fi
+
+# Terminal Monsters Inc. alias to launch the game
+alias terminal-monsters='$(which terminal-monsters-app)'
 ```
 
 ### Launch the Game 🚀
@@ -110,3 +113,7 @@ Happy coding and monster-catching! 🎉
 - [ ] **Monsters Artwork**: Pixel art rendering of all the monsters in the dex.
 
 - [ ] **50 monsters dex**: Collect and train monsters related to the most famous languages and frameworks.
+
+```
+
+```
