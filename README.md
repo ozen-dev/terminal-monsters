@@ -15,7 +15,7 @@ Embark on an exciting journey, enhance your coding skills, and become the ultima
   - [Configure Your Shell](#configure-your-shell-)
 - [Launch the Game](#launch-the-game-)
 - [Let the Adventure Begin](#-let-the-adventure-begin)
-- [Roadmap](#roadmap-)
+- [Roadmap](#%EF%B8%8F-roadmap)
 
 ## 🛠️ Installation
 
