@@ -7,6 +7,7 @@ Embark on an exciting journey, enhance your coding skills, and become the ultima
 ![Terminal Monsters Preview](https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0)
 
 ## Table of Contents 🔗
+
 - [Installation](#%EF%B8%8F-installation)
   - [Prerequisites](#prerequisites)
   - [Install Rust](#install-rust-)
@@ -20,6 +21,7 @@ Embark on an exciting journey, enhance your coding skills, and become the ultima
 ## 🛠️ Installation
 
 ### Prerequisites
+
 - Rust
 - Git
 - Bash or Zsh
@@ -48,72 +50,38 @@ sh install.sh
 
 ### Configure Your Shell 🐚
 
-To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding some functions to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh). These functions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
+To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding a function and setting up hooks in your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh).
 
-For Bash, open your .bashrc file and add the following code:
+These additions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
 
-```bash
-# Terminal Monsters Inc. function to send commands to the worker.
-watcher() {
-    # Capture the command
-    local cmd="\$@"
-    # Execute the command
-    eval "\$cmd"
-    # Send the command to the worker
-    echo "\$cmd" | $WORKER_PATH
-}
+Follow these steps to configure your shell:
 
+1. **Open your shell configuration file**:
+
+   - For Bash, open your `.bashrc` file.
+   - For Zsh, open your `.zshrc` file.
+
+2. **Add the following code to your shell configuration file**:
+
+```shell
 # Terminal Monsters Inc. function to collect and train monsters.
 preexec_invoke_exec() {
-    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
+    [ -n "$COMP_LINE" ] && return  # Do not intercept tab-completion
     local cmd
-    if [ -n "\$BASH_VERSION" ]; then
-        cmd="\$BASH_COMMAND"
-    elif [ -n "\$ZSH_VERSION" ]; then
-        cmd="\$1"
+    if [ -n "$BASH_VERSION" ]; then
+        cmd="$BASH_COMMAND"
+    else
+        cmd="$1"
     fi
-    echo "\$cmd" | $WORKER_PATH
+    echo "$cmd" | terminal-monsters-worker
 }
 
-# Terminal Monsters Inc. preexec function for Bash
-if [[ -n "\$BASH_VERSION" ]]; then
+# Terminal Monsters Inc. preexec function for Bash and Zsh
+if [ -n "$BASH_VERSION" ]; then
     trap 'preexec_invoke_exec' DEBUG
-fi
-EOL
-fi
-```
-
-For Zsh, open your .zshrc file and add the following code:
-
-```zsh
-# Terminal Monsters Inc. function to send commands to the worker.
-watcher() {
-    # Capture the command
-    local cmd="\$@"
-    # Execute the command
-    eval "\$cmd"
-    # Send the command to the worker
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. function to collect and train monsters.
-preexec_invoke_exec() {
-    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
-    local cmd
-    if [ -n "\$BASH_VERSION" ]; then
-        cmd="\$BASH_COMMAND"
-    elif [ -n "\$ZSH_VERSION" ]; then
-        cmd="\$1"
-    fi
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. preexec function for Zsh
-if [[ -n "\$ZSH_VERSION" ]]; then
+elif [ -n "$ZSH_VERSION" ]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec preexec_invoke_exec
-fi
-EOL
 fi
 ```
 

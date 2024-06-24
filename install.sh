@@ -1,59 +1,41 @@
 #!/bin/sh
 
-# Install the binaries
+# Install the Rust project
 cargo install --path .
 
-# Set up the watcher function
+# Get path to the terminal-monsters-worker executable
 WORKER_PATH=$(which terminal-monsters-worker)
+if [ -z "$WORKER_PATH" ]; then
+    echo "Error: terminal-monsters-worker not found in PATH."
+    exit 1
+fi
+
+# Determine the shell configuration file to use based on the SHELL environment variable
 SHELL_CONFIG="$HOME/.bashrc"
-if [ -n "$ZSH_VERSION" ]; then
+SHELL_NAME="Bash"
+if [ "$(basename "$SHELL")" = "zsh" ]; then
     SHELL_CONFIG="$HOME/.zshrc"
+    SHELL_NAME="Zsh"
 fi
 
-# Check if the watcher function is already defined
-if ! grep -q "watcher() {" "$SHELL_CONFIG"; then
-    cat <<EOL >>$SHELL_CONFIG
+# Print installation success message
+printf "\n"
+printf "\033[32m+ Terminal Monsters Inc. ---------------- +\033[0m\n"
+printf "\033[32m|\033[0m\n"
+printf "\033[32m|\033[0m Installation complete,\033[1m Shellora\033[0m joined your party!\n"
+printf "\033[32m|\033[0m\n"
+printf "\033[32m+ --------------------------------------- +\033[0m\n"
 
-# Terminal Monsters Inc. function to send commands to the worker.
-watcher() {
-    # Capture the command
-    local cmd="\$@"
-    # Execute the command
-    eval "\$cmd"
-    # Send the command to the worker
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. function to collect and train monsters.
-preexec_invoke_exec() {
-    [ -n "\$COMP_LINE" ] && return  # Do not intercept tab-completion
-    local cmd
-    if [ -n "\$BASH_VERSION" ]; then
-        cmd="\$BASH_COMMAND"
-    elif [ -n "\$ZSH_VERSION" ]; then
-        cmd="\$1"
-    fi
-    echo "\$cmd" | $WORKER_PATH
-}
-
-# Terminal Monsters Inc. preexec function for Bash
-if [[ -n "\$BASH_VERSION" ]]; then
-    trap 'preexec_invoke_exec' DEBUG
-fi
-
-# Terminal Monsters Inc. preexec function for Zsh
-if [[ -n "\$ZSH_VERSION" ]]; then
-    autoload -Uz add-zsh-hook
-    add-zsh-hook preexec preexec_invoke_exec
-fi
-EOL
-fi
-
-# Source the updated shell configuration
-source $SHELL_CONFIG
-
-# Notify success
-printf "\033[32m+ Terminal Monsters Inc. -----------------+\033[0m\n"
-printf "\033[32m|\033[0m\033[0m Installation complete,\033[0m\n"
-printf "\033[32m|\033[0m\033[1m Shellora\033[0m joined your party!\033[0m\n"
-printf "\033[32m+-----------------------------------------+\033[0m\n"
+# Print manual configuration instructions
+printf "\n"
+printf "\033[33m+ Manual Configuration Required ----------+\033[0m\n"
+printf "\033[33m|\033[0m\n"
+printf "\033[33m|\033[0m - Add the Terminal Monsters function and hooks to\n"
+printf "\033[33m|\033[0m   your \033[1m\033[34m$SHELL_CONFIG\033[0m\033[0m file by referring to\n"
+printf "\033[33m|\033[0m   the documentation: \033[1m\033[34mhttps://github.com/enzo-rma/terminal-monsters\033[0m\033[0m\n"
+printf "\033[33m|\033[0m\n"
+printf "\033[33m|\033[0m - After saving, source your shell configuration\n"
+printf "\033[33m|\033[0m   file by running the source command:\n"
+printf "\033[33m|\033[0m   \033[1m\033[34msource $SHELL_CONFIG\033[0m\033[0m\n"
+printf "\033[33m|\033[0m\n"
+printf "\033[33m+-----------------------------------------+\033[0m\n"

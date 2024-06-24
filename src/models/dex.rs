@@ -167,6 +167,7 @@ pub fn load_dex() -> Vec<DexMon> {
                 "rustc".to_string(),
                 "rustup".to_string(),
                 "cargo".to_string(),
+                "tauri".to_string(),
             ],
         },
         DexMon {
