@@ -1,20 +1,22 @@
 # Terminal Monsters 👾
 
-Welcome to Terminal Monsters, a thrilling game where you can collect, train, and battle monsters right from your terminal! Embark on an exciting adventure and catch'em all! 🚀
+Welcome to Terminal Monsters, a fun terminal-based game where you can collect, train, and battle monsters that live in your terminal! Each monster in the dex embodies a specific programming language, framework, or technology, inspiring you to be curious and explore as many as possible to catch and train them all! 🚀
+
+Embark on an exciting journey, enhance your coding skills, and become the ultimate Terminal Monsters trainer! 🤩
 
 ![Terminal Monsters Preview](https://github.com/enzo-rma/terminal-monsters/assets/127135864/6045ccbe-1a10-43d1-b3f4-a89160f1c4e0)
 
 ## 🛠️ Installation
 
-To get started with Terminal Monsters, follow these simple steps:
+To get started with Terminal Monsters, follow these steps:
 
 ### Install Rust 🦀
 
-Make sure you have Rust installed on your machine. If you don't have it yet, follow the [official installation guide](https://doc.rust-lang.org/book/ch01-01-installation.html).
+Make sure you have Rust installed on your machine. If you don't, follow the [official installation guide](https://doc.rust-lang.org/book/ch01-01-installation.html).
 
 ### Clone the Repository 📥
 
-Clone the Terminal Monsters repository to your local machine using the following command:
+Clone the Terminal Monsters repository to your local machine:
 
 ```shell
 git clone https://github.com/enzo-rma/terminal-monsters.git
@@ -30,7 +32,7 @@ sh install.sh
 
 ### Configure Your Shell 🐚
 
-Add the following code to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh):
+To fully enjoy the Terminal Monsters experience, you need to configure your shell to interact with the game. This involves adding some functions to your shell configuration file (`.bashrc` for Bash or `.zshrc` for Zsh). These functions will allow the game to monitor and respond to the commands you execute in your terminal, enabling the collection and training of monsters as you go about your programming tasks.
 
 For Bash:
 
