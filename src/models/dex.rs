@@ -148,7 +148,7 @@ pub fn load_dex() -> Vec<DexMon> {
         },
         DexMon {
             id: 16,
-            name: "PostgreSqueel".to_string(),
+            name: "Squeelite".to_string(),
             family: Family::Database,
             commands: vec!["psql".to_string(), "supabase".to_string()],
         },

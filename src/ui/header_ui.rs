@@ -1,7 +1,7 @@
 use ratatui::{prelude::*, widgets::*};
 
 pub fn render_header_ui(frame: &mut Frame, area: Rect) {
-    let footer_text = " (↑) up | (↓) down | (w) wiki | (d) discord | (q) quit";
+    let footer_text = " (↑) up | (↓) down | (r) reload | (w) wiki | (q) quit";
     let footer = Paragraph::new(footer_text)
         .block(
             Block::new()

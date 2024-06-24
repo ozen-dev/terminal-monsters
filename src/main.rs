@@ -56,6 +56,11 @@ fn main() -> Result<()> {
                             // Reload party data when 'r' is pressed
                             party = load_party()?;
                         }
+                        KeyCode::Char('w') => {
+                            // Open github page in default browser window
+                            let url = "https://github.com/enzo-rma/terminal-monsters";
+                            let _ = std::process::Command::new("open").args(&[url]).status();
+                        }
                         _ => {}
                     }
                 }
