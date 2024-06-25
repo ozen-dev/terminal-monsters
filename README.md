@@ -4,7 +4,7 @@ Welcome to Terminal Monsters, a fun terminal-based game where you can collect, t
 
 Embark on an exciting journey, enhance your coding skills, and become the ultimate Terminal Monsters trainer! 🤩
 
-<img width="1440" alt="terminal-monsters-inc" src="https://github.com/enzo-rma/terminal-monsters/assets/127135864/f9cd5c70-bf80-4e7b-8388-7d73a2e998e1">
+<img width="1440" alt="terminal-monsters-preview" src="https://github.com/enzo-rma/terminal-monsters/assets/127135864/402f1cd6-09a7-419c-9379-60cb17c015e6">
 
 ## Table of Contents 🔗
 
