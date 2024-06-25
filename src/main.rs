@@ -13,10 +13,9 @@ use std::io::{stdout, Result, Stdout};
 use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
 
 fn main() -> Result<()> {
-    // Set title to "Terminal Monsters Inc."
+    // Set terminal tab title to "Terminal Monsters Inc."
     print!("\x1b]0;Terminal Monsters Inc.\x07");
 
-    // Setup terminal and data
     let mut terminal = setup_terminal()?;
     let mut selected_row = 0;
     let mut scroll_position = 0;
@@ -56,11 +55,9 @@ fn main() -> Result<()> {
                             }
                         }
                         KeyCode::Char('r') => {
-                            // Reload party data when 'r' is pressed
                             party = load_party()?;
                         }
                         KeyCode::Char('w') => {
-                            // Open github page in default browser window
                             let url = "https://github.com/enzo-rma/terminal-monsters";
                             let _ = std::process::Command::new("open").args(&[url]).status();
                         }
