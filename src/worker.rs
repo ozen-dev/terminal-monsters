@@ -21,10 +21,10 @@ fn main() -> io::Result<()> {
     let stdin = io::stdin();
     let reader = stdin.lock();
 
-    // Distribute 3 experience points to all monsters in the party
+    // Distribute 1 experience points to all monsters in the party
     let mut party = initialize_party().unwrap_or_else(|_| vec![]);
     for mon in &mut party {
-        mon.gain_experience(3);
+        mon.gain_experience(1);
     }
 
     // Check if input contains a command from the dex
