@@ -9,11 +9,15 @@ use std::io::{self, BufRead};
 fn main() -> io::Result<()> {
     let dex = load_dex();
 
-    // Hash command to monster
-    let mut command_map: HashMap<&str, &DexMon> = HashMap::new();
+    // Hash command to monster for collection and experience
+    let mut collect_command_map: HashMap<&str, &DexMon> = HashMap::new();
+    let mut exp_command_map: HashMap<&str, &DexMon> = HashMap::new();
     for dex_mon in &dex {
-        for command in &dex_mon.commands {
-            command_map.insert(command, dex_mon);
+        for command in &dex_mon.collect_cmds {
+            collect_command_map.insert(command, dex_mon);
+        }
+        for command in &dex_mon.exp_commands {
+            exp_command_map.insert(command, dex_mon);
         }
     }
 
@@ -21,50 +25,75 @@ fn main() -> io::Result<()> {
     let stdin = io::stdin();
     let reader = stdin.lock();
 
-    // Distribute 1 experience points to all monsters in the party
+    // +1 Exp. to all monsters in the party
     let mut party = initialize_party().unwrap_or_else(|_| vec![]);
     for mon in &mut party {
         mon.gain_experience(1);
     }
 
-    // Check if input contains a command from the dex
+    // Process commands
     for line in reader.lines() {
         let command = line?;
-
-        // Check if the command contains any of the known commands
-        if let Some((_, dex_mon)) = command_map.iter().find(|(cmd, _)| command.contains(*cmd)) {
-            // Check if the monster is already in the party
-            if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
-                // Attribute 33 experience points to the specific monster
-                mon.gain_experience(33);
-            } else {
-                // Add monster to party
-                party.push(PartyMon::new(dex_mon.id, 1, (0, 100)));
-
-                // Notify user
-                println!("{}", "+ Terminal Monsters Inc. -----------------+".green());
-                println!(
-                    "{}",
-                    format!(
-                        "{} {} joined your party!",
-                        "|".green(),
-                        dex_mon.name.bold().color(match dex_mon.family {
-                            Family::Scripting => "dark gray",
-                            Family::Web => "red",
-                            Family::Mobile => "green",
-                            Family::Gaming => "blue",
-                            Family::Database => "yellow",
-                            Family::Systems => "cyan",
-                            Family::Neural => "magenta",
-                            Family::Ancient => "brown",
-                        })
-                    )
-                );
-                println!("{}", "+-----------------------------------------+".green());
-            }
-            save_party(&party)?;
-        }
+        process_command(&command, &mut party, &collect_command_map, &exp_command_map)?;
     }
 
     Ok(())
+}
+
+fn process_command(
+    command: &str,
+    party: &mut Vec<PartyMon>,
+    collect_command_map: &HashMap<&str, &DexMon>,
+    exp_command_map: &HashMap<&str, &DexMon>,
+) -> io::Result<()> {
+    for (key, dex_mon) in collect_command_map {
+        if command.contains(key) {
+            handle_collect_command(dex_mon, party)?;
+        }
+    }
+    for (key, dex_mon) in exp_command_map {
+        if command.contains(key) {
+            handle_exp_command(dex_mon, party)?;
+        }
+    }
+    Ok(())
+}
+
+fn handle_collect_command(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> io::Result<()> {
+    if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
+        mon.gain_experience(33);
+    } else {
+        party.push(PartyMon::new(dex_mon.id, 1, (0, 100)));
+        notify_user(dex_mon);
+    }
+    save_party(&party)
+}
+
+fn handle_exp_command(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> io::Result<()> {
+    if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
+        mon.gain_experience(1);
+    }
+    save_party(&party)
+}
+
+fn notify_user(dex_mon: &DexMon) {
+    println!("{}", "+ Terminal Monsters Inc. -----------------+".green());
+    println!(
+        "{}",
+        format!(
+            "{} {} joined your party!",
+            "|".green(),
+            dex_mon.name.bold().color(match dex_mon.family {
+                Family::Scripting => "dark gray",
+                Family::Web => "red",
+                Family::Mobile => "green",
+                Family::Gaming => "blue",
+                Family::Database => "yellow",
+                Family::Systems => "cyan",
+                Family::Neural => "magenta",
+                Family::Ancient => "brown",
+            })
+        )
+    );
+    println!("{}", "+-----------------------------------------+".green());
 }
