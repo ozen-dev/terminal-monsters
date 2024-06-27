@@ -2,14 +2,17 @@
 use app::models::dex::{get_dex_mon_by_id, load_dex, DexMon, Family};
 use app::models::party::{initialize_party, save_party, PartyMon};
 use colored::*;
-use std::collections::HashMap;
-use std::io::{self, BufRead};
+use std::{
+    collections::HashMap,
+    io::{self, BufRead},
+};
 
 #[allow(dead_code)]
 fn main() -> io::Result<()> {
     let dex = load_dex();
+    let mut party = initialize_party().unwrap_or_else(|_| vec![]);
 
-    // Hash command to monster for collection and experience
+    // Map dex commands
     let mut collect_command_map: HashMap<&str, &DexMon> = HashMap::new();
     let mut exp_command_map: HashMap<&str, &DexMon> = HashMap::new();
     for dex_mon in &dex {
@@ -25,8 +28,7 @@ fn main() -> io::Result<()> {
     let stdin = io::stdin();
     let reader = stdin.lock();
 
-    // +1 Exp. to all monsters in the party
-    let mut party = initialize_party().unwrap_or_else(|_| vec![]);
+    // Distribute 1 Exp. to the team by default
     for mon in &mut party {
         mon.gain_experience(1);
     }
@@ -46,16 +48,18 @@ fn process_command(
     collect_command_map: &HashMap<&str, &DexMon>,
     exp_command_map: &HashMap<&str, &DexMon>,
 ) -> io::Result<()> {
-    for (key, dex_mon) in collect_command_map {
-        if command.contains(key) {
+    for (value, dex_mon) in collect_command_map {
+        if command.contains(value) {
             handle_collect_command(dex_mon, party)?;
         }
     }
-    for (key, dex_mon) in exp_command_map {
-        if command.contains(key) {
+
+    for (value, dex_mon) in exp_command_map {
+        if command.contains(value) {
             handle_exp_command(dex_mon, party)?;
         }
     }
+
     Ok(())
 }
 
